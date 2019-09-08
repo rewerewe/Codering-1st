@@ -32,7 +32,7 @@ public class QtboardDAO extends AbstractDAO
 	// 페이징을 위한 데이터 갯수 불러오기
 	public int selectDataCount(Map<String, Object> map)
 	{
-		return (int) selectOne("qtboard.dataCount", map);
+		return (Integer) selectOne("qtboard.dataCount", map);
 	}
 	
 	// 조회수 업데이트
@@ -122,7 +122,7 @@ public class QtboardDAO extends AbstractDAO
 	// 댓글자식이 삭제되었을때 그 부모가 자식이 있나없나 확인
 	public int selectChildCheck(Map<String, Object> map)
 	{
-		return (int) selectOne("qtboard.parCommentCheck", map);
+		return (Integer) selectOne("qtboard.parCommentCheck", map);
 	}
 }
 

@@ -11,12 +11,12 @@ public class UserDAO extends AbstractDAO
 {
 	public int selectIdOverlap(Map<String, Object> map)
 	{
-		return (int) selectOne("user.idOverlap", map);
+		return (Integer) selectOne("user.idOverlap", map);
 	}
 	
 	public int selectNickOverlap(Map<String, Object> map)
 	{
-		return (int) selectOne("user.nickOverlap", map);
+		return (Integer) selectOne("user.nickOverlap", map);
 	}
 	
 	public void insertData(Map<String, Object> map)

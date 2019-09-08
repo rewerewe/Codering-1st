@@ -5,14 +5,11 @@
 						http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
     
     
-    <!-- 데이터소스 객체를 생성하기 위한 xml 파일 -->
-    
-    
     <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@211.238.142.162:1521:XE"/>
-        <property name="username" value="codering"/>
-        <property name="password" value="codering1234"/>
+        <property name="url" value="jdbc:oracle:thin:@idealful.iptime.org:1521:idealful"/>
+        <property name="username" value="IMME"/>
+        <property name="password" value="180801"/>
     </bean>
     
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">

@@ -53,7 +53,7 @@ public class AlarmDAO extends AbstractDAO
 	
 	public int selectAlarmCount(Map<String, Object> map)
 	{
-		return (int) selectOne("alarm.count", map);
+		return (Integer) selectOne("alarm.count", map);
 	}
 	
 	public void updateAlarmRead(Map<String, Object> map)

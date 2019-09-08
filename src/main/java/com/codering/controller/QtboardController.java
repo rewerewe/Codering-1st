@@ -75,7 +75,7 @@ public class QtboardController
 		
 		
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap();
 		map.put("searchKey", searchKey);
 		map.put("searchValue", searchValue);
 		

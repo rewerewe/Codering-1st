@@ -27,7 +27,7 @@ public class TutorApplyDAO extends AbstractDAO
 	 */
 	public int deleteTutorApplyStatus(Map<String, Object> map)
 	{
-		int result = (int) delete("tutorApply.deleteTutorApplyStatus", map);
+		int result = (Integer) delete("tutorApply.deleteTutorApplyStatus", map);
 		
 		return result;
 	}

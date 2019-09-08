@@ -30,7 +30,7 @@ public class TutorProfileDAO extends AbstractDAO
 
 	public int selectTutorCareerCount(Map<String, Object> map)
 	{
-		return (int) selectOne("tutorprofile.careerCount", map);
+		return (Integer) selectOne("tutorprofile.careerCount", map);
 	}
 	
 	@SuppressWarnings("unchecked")

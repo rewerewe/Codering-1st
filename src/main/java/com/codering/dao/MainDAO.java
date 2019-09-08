@@ -28,12 +28,12 @@ public class MainDAO extends AbstractDAO
 	
 	public int selectTutorCount()
 	{
-		return (int) selectOne("mainpage.selectTutorCount");
+		return (Integer) selectOne("mainpage.selectTutorCount");
 	}
 	
 	public int selectTuteeCount()
 	{
-		return (int) selectOne("mainpage.selectTuteeCount");
+		return (Integer) selectOne("mainpage.selectTuteeCount");
 	}
 	
 	@SuppressWarnings("unchecked")

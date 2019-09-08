@@ -48,13 +48,13 @@ public class ImageController
 		if (saveFilename != null) 
 		{
 			String fulllpathname = pathname + "/" + saveFilename;
-			int width = imageManager.getImageWidth(fulllpathname);
-			if (width > 600)
-				width = 600;
-			strUrl += "&bNewLine=true&sFileName=";
-			strUrl += saveFilename;
-			strUrl += "&sWidth=" + width;
-			strUrl += "&sFileURL=" + cp + "/uploads/image/" + saveFilename;
+//			int width = imageManager.getImageWidth(fulllpathname);
+//			if (width > 600)
+//				width = 600;
+//			strUrl += "&bNewLine=true&sFileName=";
+//			strUrl += saveFilename;
+//			strUrl += "&sWidth=" + width;
+//			strUrl += "&sFileURL=" + cp + "/uploads/image/" + saveFilename;
 			
 			flag = true;
 		}
@@ -88,15 +88,15 @@ public class ImageController
 			String saveFilename = fileManager.doFileUpload(is, filename, pathname);
 			
 			String fulllpathname = pathname + "/" + saveFilename;
-			int width = imageManager.getImageWidth(fulllpathname);
-			
-			if (width > 600)
-				width = 600;
-			
-			strUrl += "&bNewLine=true&sFileName=";
-			strUrl += saveFilename;
-			strUrl += "&sWidth=" + width;
-			strUrl += "&sFileURL=" + cp + "/uploads/image/" + saveFilename;
+//			int width = imageManager.getImageWidth(fulllpathname);
+//			
+//			if (width > 600)
+//				width = 600;
+//			
+//			strUrl += "&bNewLine=true&sFileName=";
+//			strUrl += saveFilename;
+//			strUrl += "&sWidth=" + width;
+//			strUrl += "&sFileURL=" + cp + "/uploads/image/" + saveFilename;
 		}
 		
 		PrintWriter out = resp.getWriter();

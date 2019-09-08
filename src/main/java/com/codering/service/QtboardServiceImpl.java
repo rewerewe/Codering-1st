@@ -52,7 +52,7 @@ public class QtboardServiceImpl implements QtboardService
 	@Override
 	public Map<String, Object> readBoardAll(Map<String, Object> map)
 	{
-		Map<String, Object> resultMap = new HashMap<>();
+		Map<String, Object> resultMap = new HashMap();
 
 		dao.updateHitCount(map);
 
@@ -68,7 +68,7 @@ public class QtboardServiceImpl implements QtboardService
 	@Override
 	public Map<String, Object> readBoard(Map<String, Object> map)
 	{
-		Map<String, Object> resultMap = new HashMap<>();
+		Map<String, Object> resultMap = new HashMap();
 
 		resultMap.put("post", dao.selectReadBoard(map));
 
@@ -140,16 +140,16 @@ public class QtboardServiceImpl implements QtboardService
 	@Override
 	public void deleteComment(Map<String, Object> map)
 	{
-		//댓글을 삭제하려할때 자식이 있다면 딜체크만 변경
+		//�뙎湲��쓣 �궘�젣�븯�젮�븷�븣 �옄�떇�씠 �엳�떎硫� �뵜泥댄겕留� 蹂�寃�
 		if(Integer.parseInt((String)map.get("PARCHECK")) != 0)
 		{
 			dao.updateDeleteComment(map);
 		}
-		else // 없다면 일단 삭제
+		else // �뾾�떎硫� �씪�떒 �궘�젣
 		{
 			dao.deleteComment(map);
 			
-			if(dao.selectChildCheck(map) == 0) // 삭제한댓글의 부모가 더이상 자식이 없으면 같이 삭제
+			if(dao.selectChildCheck(map) == 0) // �궘�젣�븳�뙎湲��쓽 遺�紐④� �뜑�씠�긽 �옄�떇�씠 �뾾�쑝硫� 媛숈씠 �궘�젣
 			{
 				map.put("COMM_ID", map.get("PAR_COMM_ID"));
 				

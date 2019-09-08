@@ -71,7 +71,7 @@ public class FileController
 		
 		log.info("주소 -- " + uploadPath);
 
-		ResponseEntity<String> img_path = new ResponseEntity<>(
+		ResponseEntity<String> img_path = new ResponseEntity(
 				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
 		String user_imgPath = (String) img_path.getBody();

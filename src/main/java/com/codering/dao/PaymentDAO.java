@@ -12,7 +12,7 @@ public class PaymentDAO extends AbstractDAO
 {
 	public int selectTuteeAuth(Map<String, Object> map)
 	{
-		return (int) selectOne("payment.selectTuteeAuth");
+		return (Integer) selectOne("payment.selectTuteeAuth");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -23,7 +23,7 @@ public class PaymentDAO extends AbstractDAO
 	
 	public int selectCouponCount(Map<String,Object> map)
 	{
-		return (int)selectOne("payment.selectCouponCount",map); 
+		return (Integer) selectOne("payment.selectCouponCount",map); 
 	}
 	
 	@SuppressWarnings("unchecked")

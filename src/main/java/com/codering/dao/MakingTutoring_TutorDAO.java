@@ -81,7 +81,7 @@ public class MakingTutoring_TutorDAO extends AbstractDAO
 	
 	public int selectRegCount(Map<String,Object> map)
 	{
-		return (int) selectOne("makingtutoring_tutor.selectRegCount",map);
+		return (Integer) selectOne("makingtutoring_tutor.selectRegCount",map);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.maven.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -111,4 +112,70 @@ public class TutorTutoringSearchController
 
 		return map;
 	}
+	
+	@RequestMapping(value="tutee_tutoringdetail")
+	public ModelAndView TutoringTutee_Detail(CommandMap commandMap)
+	{
+		ModelAndView mav = new ModelAndView("Tutoring_tutee_done");
+		
+		commandMap.put("TUTORING_TUTEE_ID","5");
+		commandMap.put("TUTOR_ID","1");
+		commandMap.put("MEMBER_ID", "1");
+		
+		Map<String,Object> result = tutorTutoringSearchService.selectTutoringTuteeDetail(commandMap.getMap());
+		
+		mav.addObject("selectTutoringTutee",result.get("selectTutoringTutee"));
+		mav.addObject("selectTutoringTime",result.get("selectTutoringTime"));
+		mav.addObject("selectApplyCount",result.get("selectApplyCount"));
+		mav.addObject("selectReservationCount",result.get("selectReservationCount"));
+		mav.addObject("selectTuteeNeedTech",result.get("selectTuteeNeedTech"));
+		mav.addObject("selectTotReservationCount",result.get("selectTotReservationCount"));
+		
+		return mav;	
+	}
+	
+	@RequestMapping(value="insertApply")
+	public ModelAndView insertApply(CommandMap commandMap)
+	{
+		ModelAndView mav = new ModelAndView("tutee_tutoringdetail");
+		
+		tutorTutoringSearchService.insertApply(commandMap.getMap());
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="insertReservation")
+	public ModelAndView insertReservation(CommandMap commandMap)
+	{
+		ModelAndView mav = new ModelAndView("tutee_tutoringdetail");
+		
+		tutorTutoringSearchService.insertReservation(commandMap.getMap());
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="deleteReservation")
+	public ModelAndView deleteReservation(CommandMap commandMap)
+	{
+		ModelAndView mav = new ModelAndView("tutee_tutoringdetail");
+		
+		tutorTutoringSearchService.deleteReservation(commandMap.getMap());
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="deleteApply")
+	public ModelAndView deleteApply(CommandMap commandMap)
+	{
+		ModelAndView mav= new ModelAndView("tutee_tutoringdetail");
+		
+		tutorTutoringSearchService.deleteApply(commandMap.getMap());
+		
+		return mav;
+	}
+	
+	
+	
+
 }

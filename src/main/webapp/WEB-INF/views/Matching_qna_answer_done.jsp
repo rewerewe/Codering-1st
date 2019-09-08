@@ -213,7 +213,6 @@
 				var FAQ_CONTENT = $("#answer").val();
 				var FAQ_ID = $("input[name=faqId]").val();
 				
-
 				if (FAQ_CONTENT == "") 
 				{
 					alert("내용을 입력해주세요.");
@@ -252,7 +251,7 @@
 	function sentAnswer() 
 	{
 		var FAQ_ID = $("input[name=faqId]").val();
-
+		
 		$.ajax({
 			type : "POST",
 			url : "<c:url value='/tutee_qnapage_answer_ajax' />",
@@ -261,6 +260,8 @@
 			success : function(data)
 			{
 				var strDone = "";
+				
+				console.log(data);
 				
 				for (var i = 0; i < data.length; i++)
 				{
@@ -279,8 +280,9 @@
 					strDone += "			</div>";
 					strDone += "	</div>";
 					strDone += "</div>";
-					
 				}
+				
+				alert(strDone);
 			
 				$("#askAns").html(strDone);
 				
@@ -387,7 +389,7 @@
 						          <div class="media-body subcontent">
 						           
 						              <div class="media mt-4 tutor-reply" style="width: 632px; background-color: #fff;">
-						              <input type="hidden" name="memberId" value="${loginIngo.MEMBER_ID }" >
+						              <input type="hidden" name="memberId" value="${loginInfo.MEMBER_ID }" >
 						              <!--  <input type="hidden" name="memberId" value="3" /> -->
 						              <!-- 문의 상세보기 -->
 						              <c:forEach var="qnaPage" items="${qnaPage }">

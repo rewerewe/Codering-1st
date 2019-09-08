@@ -7,6 +7,34 @@
 <head>
 <meta charset="utf-8">
 <title>튜터 - 튜터링 찾기</title>
+<!---------------------------------- Header ----------------------------------------->
+<!-- Custom fonts for this template-->
+<link href="${cp}/headerFiles/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+
+<!-- Custom styles for this template-->
+<link href="${cp}/headerFiles/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="${cp}/headerFiles/css/header01.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="${cp}/headerFiles/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!--  dropdown -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Core plugin JavaScript-->
+<!-- <script src="${cp}/headerFiles/vendor/jquery-easing/jquery.easing.min.js"></script> -->
+
+<!-- Custom scripts for all pages-->
+<script src="${cp}/headerFiles/js/sb-admin-2.min.js"></script>
+
+<link rel="stylesheet" href="css/blog-post.css">
+<link rel="stylesheet" href="css/myCss.css" />
+<!----------------------------- End Header ----------------------------------------->
 <link href="${cp}/css/ces/business-frontpage.css" rel="stylesheet">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="${cp}/css/jquery-ui.css" rel="stylesheet">
@@ -20,7 +48,7 @@
 <style type="text/css">
 body {
 	margin-top: 20px;
-	background: #eee;
+	background: white;
 }
 
 .avatar.avatar-xl {
@@ -242,8 +270,8 @@ a {
 </head>
 
 <body>
-	<div id="Header" style="position: relative; width: 100%; top: -55px;"></div>
 
+<c:import url="Header_Sidebar_done.jsp"></c:import>
 <%-- 	
 	<div id="test">
 	${list}

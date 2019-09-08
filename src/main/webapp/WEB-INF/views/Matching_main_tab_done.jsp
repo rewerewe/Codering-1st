@@ -8,6 +8,8 @@
 
 <style>
 
+/* 추가추가 */
+
 .wrap-table {
   width: 100%;
   border-radius: 10px;

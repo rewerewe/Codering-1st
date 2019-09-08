@@ -178,4 +178,124 @@
 	AND RNUM BETWEEN #{rowNumStart} AND #{rowNumEnd}
 	</select>
 	
+	<!-- 튜티가 튜티장이 개설한 튜터링 예약하기 -->
+	<insert id="insertTutoringReservation" parameterType="hashmap">
+		INSERT INTO TUTORING_RESERVATION
+		(RESERVATION_ID,TUTORING_TUTEE_ID,MEMBER_ID,RESERVARTION_DATE) 
+		VALUES
+		(TUTORING_RESERVATION_SEQ.NEXTVAL
+		,#{TUTORING_TUTEE_ID}
+		,#{MEMBER_ID}
+		,SYSDATE)
+	</insert>
+	
+	<select id="selectReservationCount" resultType="java.lang.Integer" parameterType="hashmap">
+			SELECT 
+				COUNT(RESERVATION_ID)
+			FROM
+				TUTORING_RESERVATION
+			WHERE 
+				TUTORING_TUTEE_ID=#{TUTORING_TUTEE_ID} AND MEMBER_ID=#{MEMBER_ID}
+	</select>
+	
+	<!-- 튜티장이 개설한 튜터링의 시간 조회 -->
+	<select id="selectTimeDivision" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			TIME_ID
+			,TUTORING_TUTEE_ID
+			,WEEDAY_END
+			,AM_PM
+		FROM 
+			TUTORING_TUTEE_TIME T JOIN TIME_DIVISION D
+		ON 
+			T.TIME_CAT_ID = D.TIME_CAT_ID AND T.TUTORING_TUTEE_ID=#{TUTORING_TUTEE_ID}
+	</select>
+	
+	<!-- 튜티장이 개설한 튜터링의 정보 조회 -->
+	<select id="selectTutoringTutee" resultType="hashmap" parameterType="hashmap">
+		SELECT TUTORING_TUTEE_ID
+		       ,TUTORING_TITLE
+		       ,MEMBER_ID
+		       ,(SELECT PROF_PATH FROM TUTEE  WHERE MEMBER_ID = T.MEMBER_ID ) AS PROF_PATH
+		       ,(SELECT NICKNAME FROM TUTEE  WHERE MEMBER_ID = T.MEMBER_ID) AS NICKNAME
+		       ,INTRO
+		       ,ENTIRE_PERIOD
+		       ,MIN_NUM
+		       ,MAX_NUM
+		       ,REG_ID
+		       ,REG_NAME
+		       ,REG_LONG
+		       ,REG_LAT
+		       ,ENTRY_COST
+		       ,DEADLINE
+		       ,TCOMMENT
+		       ,UPLOAD_DATE
+		       ,INTEREST_ID
+		       ,LEVEL_ID
+		FROM
+			 TUTORING_TUTEE_VIEW T
+		WHERE 
+			T.TUTORING_TUTEE_ID=#{TUTORING_TUTEE_ID}
+			
+	</select>
+	
+	
+	<!-- 튜티장이 개설한 튜터링에 튜터지원을 했는지 여부 확인 -->
+	<select id="selectApplyCount" resultType="java.lang.Integer" parameterType="hashmap">
+		SELECT 
+			COUNT(APPLY_ID)
+		FROM 
+			TUTOR_APPLY
+		WHERE 
+			TUTORING_TUTEE_ID = #{TUTORING_TUTEE_ID} AND TUTOR_ID = #{TUTOR_ID}
+	</select>
+	
+	<!-- 튜티장이 개설한 튜터링에 튜터지원하기 -->
+	<insert id="insertTutorApply"  parameterType="hashmap">
+		INSERT INTO TUTOR_APPLY
+			(APPLY_ID,TUTOR_ID,TUTORING_TUTEE_ID,APPLY_DATE,MACH_LV_ID)
+		VALUE 
+			(TUTOR_APPLY_SEQ.NEXTVAL,#{TUTOR_ID},#{TUTORING_TUTEE_ID},SYSDATE,3)
+	</insert>
+	
+	<!-- 튜티장이 개설한 튜터링의 최소 권장레벨 -->
+	<select id="selectTuteeNeedTech" resultType="hashmap" parameterType="hashmap">
+		SELECT TUTORING_TUTEE_ID
+				,INTEREST_CAT
+				,LEVEL_NAME
+		FROM TUTEE_NEEDTHCH T JOIN INTEREST I
+				ON T.INTEREST_ID = I.INTEREST_ID JOIN TECH_LEVEL TL
+				                                ON T.LEVEL_ID = TL.LEVEL_ID AND T.TUTORING_TUTEE_ID = #{TUTORING_TUTEE_ID}
+	</select>
+	
+	<!-- 튜티장이 개설한 튜터링에 예약한 총 인원 -->
+	<select id="selectTotReservationCount" resultType="java.lang.Integer" parameterType="hashmap">
+		SELECT 
+			COUNT(RESERVATION_ID)
+		FROM
+			TUTORING_RESERVATION
+		WHERE 
+			TUTORING_TUTEE_ID=#{TUTORING_TUTEE_ID}
+	</select>
+	
+	<!-- 문의내용 출력하기 -->
+	
+	<delete id="deleteReservation">
+		DELETE
+		FROM 
+			TUTORING_RESERVATION
+		WHERE 
+			TUTORING_TUTOR_ID = #{TUTORING_TUTOR_ID} AND MEMBER_ID = #{MEMBER_ID}
+	</delete>
+	
+	<delete id="deleteApply">
+		DELETE
+		FROM 
+			TUTOR_APPLY
+		WHERE 
+			TUTORING_TUTOR_ID = #{TUTORING_TUTOR_ID} AND TUTOR_ID = #{TUTOR_ID}
+	</delete>
+	
+	
+	
 </mapper>

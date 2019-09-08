@@ -68,6 +68,21 @@ public class TuteeMatchingServiceImpl implements TuteeMatchingService
 	{
 		dao.inviteDeleteLv(map);
 	}
+	
+	
+	// 초대 튜터 이름 조회
+	@Override
+	public Map<String, Object> selectInviteTutor(Map<String, Object> map)
+	{
+		/*
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("inviteTutor", dao.selectInviteTutor(map));
+		
+		return resultMap;
+		*/
+		
+		return null;
+	}
 
 	
 	// 초대튜터 대화 메시지 조회
@@ -77,7 +92,7 @@ public class TuteeMatchingServiceImpl implements TuteeMatchingService
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		dao.updateInviteReadcheck(map);
 		resultMap.put("inviteMsg", dao.selectInviteMsg(map));
-		
+		resultMap.put("inviteTutor", dao.selectInviteTutor(map));
 		return resultMap;
 	}
 	
@@ -104,6 +119,7 @@ public class TuteeMatchingServiceImpl implements TuteeMatchingService
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		dao.updateApplyReadcheck(map);
 		resultMap.put("applyMsg", dao.selectApplyMsg(map));
+		resultMap.put("applyTutor", dao.selectApplyTutor(map));
 		
 		return resultMap;
 	}
@@ -179,15 +195,14 @@ public class TuteeMatchingServiceImpl implements TuteeMatchingService
 	}
 
 	
-	// 지원튜터 정보조회
-	/*
+	// 대화에서 지원 튜터 이름 조회
 	@Override
-	public Map<String, Object> selectApplyMsgInfo(Map<String, Object> map)
+	public Map<String, Object> selectApplyTutor(Map<String, Object> map)
 	{
-		return map;
-
+		// TODO Auto-generated method stub
+		return null;
 	}
-	*/
+
 
 
 }

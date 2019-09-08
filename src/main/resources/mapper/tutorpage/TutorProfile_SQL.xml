@@ -12,7 +12,7 @@
 			, T.PHONENUM
 		FROM TUTOR_INFO F, TUTEE T
 		WHERE 
-			F.TUTOR_ID = #{TUTOR_ID}
+			T.MEMBER_ID = #{MEMBER_ID}
 		  AND 
 		  	F.MEMBER_ID = T.MEMBER_ID
 	</select>
@@ -24,6 +24,8 @@
 			, R.INTEREST_CAT
 			, L.LEVEL_NAME
 			, I.TUTOR_INTEREST_ID
+			, L.LEVEL_ID
+			, R.INTEREST_ID
 		FROM 
 			TUTOR_INTEREST I
 			, INTEREST R
@@ -123,17 +125,30 @@
 		  	L.LINK_CAT_ID = C.LINK_CAT_ID
 	</select>	
 	
+	<!-- 튜터 링크 개수 조회 -->
+	<select id="linkCount" parameterType="hashmap" resultType="Integer">
+		SELECT 
+			COUNT(*)
+		FROM 
+			TUTOR_LINK
+		WHERE 
+			TUTOR_ID = #{TUTOR_ID}
+	</select>
 	
+	
+
 	<!-- 튜터 관심사(언어) 및 레벨 삭제 -->
 	<delete id="interestDelete" parameterType="hashmap">
 		DELETE
 		FROM 
 			TUTOR_INTEREST
 		WHERE 
-			INTEREST_ID = #{INTEREST_ID};
+		    TUTOR_ID = #{TUTOR_ID}
+		  AND 
+		    LEVEL_ID IS NOT NULL
 	</delete>
 	
-	<!-- 튜터 관심사(언어_ 및 레벨 등록 -->
+	<!-- 튜터 관심사(언어) 및 레벨 등록 -->
 	<insert id="interestInsert" parameterType="hashmap">
 		INSERT 
 			INTO 
@@ -150,6 +165,33 @@
 	</insert>
 	
 	
+	<!-- 튜터 카테고리 삭제 -->
+	<delete id="categoryDelete" parameterType="hashmap">
+		DELETE
+		FROM 
+			TUTOR_INTEREST
+		WHERE 
+		    TUTOR_ID = #{TUTOR_ID}
+		  AND 
+		    LEVEL_ID IS NULL
+	</delete>
+	
+	
+	<!-- 튜터 카테고리 입력 -->
+	<insert id="categoryInsert" parameterType="hashmap">
+		INSERT 
+			INTO 
+				TUTOR_INTEREST
+					(TUTOR_INTEREST_ID
+					, TUTOR_ID
+					, INTEREST_ID)
+			VALUES
+				(TUTOR_INTEREST_SEQ.NEXTVAL
+				, #{TUTOR_ID}
+				, #{INTEREST_ID})
+	</insert>
+	
+	
 	<!-- 튜터 경력 삭제 -->
 	<delete id="careerDelete" parameterType="hashmap">
 		DELETE
@@ -157,8 +199,6 @@
 			TUTOR_CAREER
 		WHERE 
 			TUTOR_ID = #{TUTOR_ID}
-		  AND 
-		  	CAREER_ID = #{CAREER_ID
 	</delete>
 	
 	<!-- 튜터 경력 입력 -->
@@ -178,8 +218,47 @@
 					, #{CAREER_END}
 					, #{CAREER_CONTENT}
 	</insert>
-
-		
+	
+	<!-- 튜터 링크 삭제 -->
+	<delete id="linkDelete" parameterType="hashmap">
+	
+		DELETE
+		FROM 
+			TUTOR_LINK
+		WHERE 
+			TUTOR_ID = #{TUTOR_ID}
+	
+	</delete>
+	
+	<!-- 튜터 링크 입력 -->
+	<insert id="linkInsert" parameterType="hashmap">
+		INSERT 
+			INTO 
+				TUTOR_LINK
+					(LINK_ID
+					, TUTOR_ID
+					, LINK_CAT_ID
+					, LINK_ADDR)
+			VALUES
+				(TUTOR_LINK_SEQ.NEXTVAL
+				, #{TUTOR_ID}
+				, #{LINK_CAT_ID}
+				, #{LINK_ADDR})
+	</insert>
+	
+	
+	<!-- 튜터 기본 정보 수정 -->
+	<update id="updateTutorInfo" parameterType="hashmap">
+		UPDATE 
+			TUTOR_INFO
+		SET 
+			TUTOR_NAME = #{TUTOR_NAME}
+			, TELEPHONE = #{TELEPHONE}
+			, INTRO = #{INTRO}
+		WHERE 
+			MEMBER_ID = #{MEMBER_ID}
+	</update>	
+	
 	
 	
 

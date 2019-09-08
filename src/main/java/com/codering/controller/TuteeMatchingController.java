@@ -37,6 +37,8 @@ public class TuteeMatchingController
 	{
 		ModelAndView mav = new ModelAndView("mypage_tuteeOpen");
 		
+		// 세션이 없는 상태이므로 임의로 값을 넣어 테스트
+		
 		Map<String, Object> resultMap = service.selectTuteeOpen(commandMap.getMap());
 				
 		mav.addObject("openList", resultMap.get("openList"));
@@ -48,6 +50,20 @@ public class TuteeMatchingController
 	@RequestMapping(value="/tutee_tutorlist")
 	public ModelAndView tutorList(CommandMap commandMap, HttpSession session)
 	{
+		log.debug("==============================================================");
+		if (commandMap.isEmpty() == false)
+		{
+			Iterator<Entry<String, Object>> iterator = commandMap.getMap().entrySet().iterator();
+			
+			Entry<String, Object> entry = null;
+			
+			while (iterator.hasNext())
+			{
+				entry = iterator.next();
+				log.debug("key : " + entry.getKey() + ", value : " + entry.getValue());
+			}
+		}
+		
 		ModelAndView mav = new ModelAndView("mypage_Matching_main_tab_done");
 		
 		Map<String, Object> resultMap = service.selectTutorList(commandMap.getMap());
@@ -94,14 +110,6 @@ public class TuteeMatchingController
 		return "redirect:/tutee_tutorlist?TUTORING_TUTEE_ID=" + TUTORING_TUTEE_ID;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 초대 튜터 대화 페이지
 	@RequestMapping(value="/tutee_msg_invite")
 	@ResponseBody
@@ -126,9 +134,12 @@ public class TuteeMatchingController
 		ModelAndView mav = new ModelAndView("mypage_Matching_message_done");
 		
 		Map<String, Object> resultMap = service.selectInviteMsg(commandMap.getMap());
-		resultMap = service.selectQnaList(commandMap.getMap());
-		
+		log.debug("inviteTutor======================"+resultMap.get("inviteTutor"));
 		mav.addObject("inviteMsg", resultMap.get("inviteMsg"));
+		mav.addObject("inviteTutor", resultMap.get("inviteTutor"));
+		
+		
+		resultMap = service.selectQnaList(commandMap.getMap());
 		mav.addObject("INVITE_ID", commandMap.get("INVITE_ID"));
 		mav.addObject("qnaList", resultMap.get("qnaList"));
 		
@@ -158,20 +169,41 @@ public class TuteeMatchingController
 		ModelAndView mav = new ModelAndView("mypage_Matching_message_done_apply");
 		
 		Map<String, Object> resultMap = service.selectApplyMsg(commandMap.getMap());
-		resultMap = service.selectQnaList(commandMap.getMap());
-		
 		mav.addObject("applyMsg", resultMap.get("applyMsg"));
+		mav.addObject("applyTutor", resultMap.get("applyTutor"));
+		
+		resultMap = service.selectQnaList(commandMap.getMap());
 		mav.addObject("APPLY_ID", commandMap.get("APPLY_ID"));
 		mav.addObject("qnaList", resultMap.get("qnaList"));
 		
 		return mav;
 	}
 	
+	
+	
+	
+	
+	
 	// 초대 튜터 메시지 가져오기 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/tutee_msg_invite_ajax")
 	public void selectInviteMsgAjax(CommandMap commandMap, HttpServletResponse response) throws IOException
 	{
+		
+		log.debug("==============================================================");
+		if (commandMap.isEmpty() == false)
+		{
+			Iterator<Entry<String, Object>> iterator = commandMap.getMap().entrySet().iterator();
+			
+			Entry<String, Object> entry = null;
+			
+			while (iterator.hasNext())
+			{
+				entry = iterator.next();
+				log.debug("key : " + entry.getKey() + ", value : " + entry.getValue());
+			}
+		}
+		
 		response.setCharacterEncoding("UTF-8");
 		
 		Map<String, Object> resultMap = service.selectInviteMsg(commandMap.getMap());
@@ -239,10 +271,34 @@ public class TuteeMatchingController
 		response.getWriter().print("");
 	}
 	
+	
+	
+	
+	
+	
+	
 	// 초대 튜터 확정버튼 클릭
 	@RequestMapping(value="/tutee_msg_confirm_invite")
 	public String updateConfirmInvite(CommandMap commandMap, HttpServletResponse response, RedirectAttributes requestAttributes) 
 	{
+		
+
+		log.debug("==============================================================");
+		if (commandMap.isEmpty() == false)
+		{
+			Iterator<Entry<String, Object>> iterator = commandMap.getMap().entrySet().iterator();
+			
+			Entry<String, Object> entry = null;
+			
+			while (iterator.hasNext())
+			{
+				entry = iterator.next();
+				log.debug("key : " + entry.getKey() + ", value : " + entry.getValue());
+			}
+		}
+		
+		
+		
 		service.updateConfirmInvite(commandMap.getMap());
 		
 		Map<String, Object> map = commandMap.getMap();
@@ -256,6 +312,24 @@ public class TuteeMatchingController
 	@RequestMapping(value="/tutee_msg_confirm_apply")
 	public String updateConfirmApply(CommandMap commandMap, HttpServletResponse response, RedirectAttributes requestAttributes) 
 	{
+		
+		
+		log.debug("==============================================================");
+		if (commandMap.isEmpty() == false)
+		{
+			Iterator<Entry<String, Object>> iterator = commandMap.getMap().entrySet().iterator();
+			
+			Entry<String, Object> entry = null;
+			
+			while (iterator.hasNext())
+			{
+				entry = iterator.next();
+				log.debug("key : " + entry.getKey() + ", value : " + entry.getValue());
+			}
+		}
+		
+		
+		
 		service.updateConfirmApply(commandMap.getMap());
 		
 		Map<String, Object> map = commandMap.getMap();
@@ -264,10 +338,29 @@ public class TuteeMatchingController
 		return "redirect:/tutee_msg_apply";
 	}
 	
+	
+	
+
+	
 	// 문의 상세 페이지 조회
 	@RequestMapping(value="/tutee_qnapage")
 	public ModelAndView selectQnaPage(CommandMap commandMap)
 	{
+		
+		log.debug("==============================================================");
+		if (commandMap.isEmpty() == false)
+		{
+			Iterator<Entry<String, Object>> iterator = commandMap.getMap().entrySet().iterator();
+			
+			Entry<String, Object> entry = null;
+			
+			while (iterator.hasNext())
+			{
+				entry = iterator.next();
+				log.debug("key : " + entry.getKey() + ", value : " + entry.getValue());
+			}
+		}
+		
 		ModelAndView mav = new ModelAndView("mypage_Matching_qna_answer_done");
 		
 		Map<String, Object> resultMap = service.selectQnaPage(commandMap.getMap());
@@ -282,6 +375,22 @@ public class TuteeMatchingController
 	@RequestMapping(value="/tutee_qnapage_answer_ajax")
 	public void selectQnaAnswer(CommandMap commandMap, HttpServletResponse response) throws IOException
 	{
+		
+		log.debug("==============================================================");
+		if (commandMap.isEmpty() == false)
+		{
+			Iterator<Entry<String, Object>> iterator = commandMap.getMap().entrySet().iterator();
+			
+			Entry<String, Object> entry = null;
+			
+			while (iterator.hasNext())
+			{
+				entry = iterator.next();
+				log.debug("key : " + entry.getKey() + ", value : " + entry.getValue());
+			}
+		}
+		
+		
 		response.setCharacterEncoding("UTF-8");
 		
 		Map<String, Object> resultMap = service.selectQnaAnswer(commandMap.getMap());
@@ -292,13 +401,24 @@ public class TuteeMatchingController
 		
 		response.getWriter().print(json.toString());
 	}
+
+	
+	
 	
 	// 답변 등록
 	@RequestMapping(value="/tutee_qnapage_answer_insert_ajax")
 	public void insertQnaAnswer(CommandMap commandMap, HttpServletResponse response) throws IOException 
 	{
 		service.insertQnaAnswer(commandMap.getMap());
-		
 		response.getWriter().print("");
 	}
+	
+	
+
+	
+	
+
+	
+		
+	
 }

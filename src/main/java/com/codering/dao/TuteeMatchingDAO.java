@@ -51,6 +51,13 @@ public class TuteeMatchingDAO extends AbstractDAO
 		
 	}
 	
+	// 초대 튜터 이름 조회
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectInviteTutor(Map<String, Object> map)
+	{
+		return (Map<String, Object>) selectOne("tuteematching.inviteTutor", map);
+	}
+	
 	// 초대 튜터와 대화 메시지 조회
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectInviteMsg(Map<String, Object> map)
@@ -70,6 +77,15 @@ public class TuteeMatchingDAO extends AbstractDAO
 		insert("tuteematching.sendMsgInvite", map);
 	}
 	
+	
+	// 초대 튜터 이름 조회
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectApplyTutor(Map<String, Object> map)
+	{
+		return (Map<String, Object>) selectOne("tuteematching.applyTutor", map);
+	}
+		
+	
 	// 지원 튜터와 대화 메시지 조회
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectApplyMsg(Map<String, Object> map)
@@ -77,14 +93,6 @@ public class TuteeMatchingDAO extends AbstractDAO
 		return selectList("tuteematching.applyMsg", map);
 	}
 	
-	// 지원 튜터 대화 정보 조회
-	/*
-	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectApplyMsgInfo(Map<String, Object> map)
-	{
-		return selectList("tuteematching.applyMsgInfo", map);
-	}
-	*/
 	
 	// 지원 튜터와 대화 읽음 처리
 	public void updateApplyReadcheck(Map<String, Object> map)

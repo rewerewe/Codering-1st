@@ -79,7 +79,7 @@
 		$("#sendit").click(function() 
 		{
 			var INVITE_ID = $('input[name=inviteId]').val();
-			var NICKNAME = $('input[name=tuteeWrite]').val();
+			var NICKNAME = $('input[name=nickname]').val();
 			var CONTENT = $("#msg").val();
 			
 			if(CONTENT == "")
@@ -136,8 +136,10 @@
 	{
 		var INVITE_ID = $('input[name=inviteId]').val();
 		var NICKNAME = $('input[name=nickname]').val();
+		var TUTOR_NAME = $('input[name=writer]').val();
+		TUTOR_NAME = TUTOR_NAME.trim();
 		
-		console.log("NICKNAME : " + NICKNAME);
+		console.log(TUTOR_NAME);
 		
 		$.ajax({
 			type : "POST",
@@ -149,30 +151,13 @@
 				console.log(data);
 				
 				var strMsg = "";
-				var strInfo = "";
-				var i = 0;
-				
-				// 튜터 이름 가져오기
-				do
-				{
-					if (data[i].WRITER != NICKNAME)
-					{
-						strInfo += "<h5 class='title title_name'>튜터 "+ data[i].WRITER +" 님</h5>"
-						strInfo += "<input type='hidden' name='writer' value=' "+ data[i].WRITER +" ' />";
-						break;
-					}
-					i++;
-					
-				} while (true);
-				
-				
 				
 				// 대화 메시지 출력
 				for (var i = 0; i < data.length; i++)
 				{
 					strMsg += "		<input type='hidden' name='tutoringId' value='" + data[i].TUTORING_TUTEE_ID + "'/>"
 					
-					if (data[i].WRITER == NICKNAME)
+					if (TUTOR_NAME != data[i].WRITER)
 					{
 						strMsg += "					<div class='outgoing_msg'>"
 						strMsg += "						<div class='sent_msg'>"
@@ -183,7 +168,7 @@
 						strMsg += "					</div>"
 						strMsg += "					<br>"
 					}
-					else
+					else if (TUTOR_NAME == data[i].WRITER)
 					{
 						strMsg += "				<div class='incoming_msg'>"
 						strMsg += "					<div class='incoming_msg_img'>"
@@ -215,7 +200,6 @@
 				}
 				
 					
-				$("#msgInfo").html(strInfo);
 				$("#sent").html(strMsg);
 				$("#scroll3").scrollTop($("#scroll3")[0].scrollHeight);
 				
@@ -260,9 +244,15 @@
 			<div id="tab01" class="tab-contents">
 				<div class="messaging">
 					<div class="inbox_msg">
-						<input type='hidden' name='nickname' value='${loginInfo.NICKNAME }' />
-						<!-- <input type="hidden" name="nickname" value="자칭천사선아" /> -->
-						<div id="msgInfo"></div>
+						<%-- <input type='hidden' name='nickname' value='${loginInfo.NICKNAME }' /> --%>
+						<input type="hidden" name="nickname" value="자칭천사선아" />
+						<div id="msgInfo">
+										
+							<!-- 튜터 이름 가져오기 -->
+							<h5 class='title title_name'>튜터 ${inviteTutor.TUTOR_NAME } 님</h5>
+							<input type='hidden' name='writer' value=' ${inviteTutor.TUTOR_NAME }' />
+						
+						</div>
 						
 						<div class="mesgs">  
 							<div class="msg_history mCustomScrollbar" id="scroll3">

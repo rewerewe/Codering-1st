@@ -92,7 +92,7 @@
 
 	$(function()
 	{
-		$("#datepicker1, #datepicker2").datepicker();
+		$("#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5, #datepicker6").datepicker();
 	});
 	
 	
@@ -131,51 +131,83 @@
 		*/
 		
 		
-		// 경력 추가하기 버튼 클릭 시, 입력창 생성
-		$("#add-button").click(function()
+
+		
+		// 경력 목록 추가/삭제
+		// 첫번째 추가하기 버튼
+		$("#add-button01").click(function()
 		{
-			var tag = "	 <div class='row'>" 
-					  + "	<div class='col-3'> <span class='bold'></span>"
-					  + "	</div>"
-					  + "	<div class='col-8'>"
-					  + "		<div class='row row-career'>"
-					  + "			<div class='col-12 col-career'>"
-					  + "				<input type='text' id='datepicker1' value='' "
-					  + "				 readonly='readonly' placeholder='시작 날짜'"
-					  + "				 style='width: 38%'> ~ <input type='text' id='datepicker2' value=''"
-					  + "				 readonly='readonly' placeholder='종료 날짜' style='width: 38%'>"
-					  + "			</div>"
-					  + "			<div class='tutorProfileReviseBox col-8 col-career'>"
-					  + "				<input type='text' class='form-control' value=''"
-					  + "				id='tutorname' placeholder='경력사항을 입력하세요.'>"
-					  + "			</div>"
-					  + "			<div class='tutorProfileReviseBox col-4 col-career'>"
-					  + "				<button type='button' class='btn btn-primary' id='add-button'>삭제하기</button>"
-					  + "			</div>"
-					  + "		</div>"
-					  + "	</div>"
-					  + "</div>";
-			
-			//text함수를 적용하여 html함수를 사용했던 같은 내용의 문자열을 표출해본다.
-			$("#tag-html").before(tag);	
+			$("#add02").show();
+			$("#add-button01").hide();
+			$("#del-button01").show();
 		});
 		
-		
-		
-		$("#delete-career").click(function()
+		// 두번째 추가하기 버튼
+		$("#add-button02").click(function()
 		{
-			var rowid = "'#"+ $("#delete-career").parents(".del-car").attr("id") + "'";
-			
-			alert(rowid);
-			
-			$(rowid).css.attr("display", "none");
-			
+			$("#add03").show();
+			$("#add-button02").hide();
+			$("#del-button02").show();
 		});
 		
+		// 첫번째 삭제하기 버튼 (내용 삭제)
+		$("#del-button01").click(function()
+		{
+			var $dates = $("#datepicker1, #datepicker2").datepicker();
+			$dates.datepicker("setDate", null);
+			$("#career01").val("");
+		});
+				
+		// 두번째 삭제하기 버튼 (내용 삭제)
+		$("#del-button02").click(function()
+		{
+			var $dates = $("#datepicker3, #datepicker4").datepicker();
+			$dates.datepicker("setDate", null);
+			$("#career02").val("");
+		});
+				
+		// 세번째 삭제하기 버튼 (내용 삭제)
+		$("#del-button03").click(function()
+		{
+			var $dates = $("#datepicker5, #datepicker6").datepicker();
+			$dates.datepicker("setDate", null);
+			$("#career03").val("");
+		});
+				
+		
+		// 경력 불러오기
+		var careerCount = $('input[name=careerCount]').val();
+		
+		// 경력 두 개 or 세 개일 때 
+		// 두번째 목록까지 나올 수 있도록 첫번째 추가하기 버튼 자동 클릭
+		if(careerCount == 2)
+		{
+			$("#add-button01").trigger("click");
+		}
+		else if(careerCount == 3)
+		{
+			$("#add-button02").trigger("click");
+		}
 		
 		
-		
-		
+		// 언어 및 레벨 불러오기
+	 	var interestLength = $("input[name='interestId']").length;
+	    var interestId = new Array(interestLength);
+	    var levelId = new Array(interestLength);
+	    
+	    for(var i=0; i<interestLength; i++)
+	    {                          
+	    	interestId[i] = $("input[name='interestId']")[i].value;
+	    	levelId[i] = $("input[name='interestId']")[i].value;
+	    }
+
+		for (var i = 0; i < interestLength; i++)
+		{
+			$('#lang-select option').eq(interestId[i]).prop('selected', true);
+			$('#lvl-select option').eq(levelId[i]).prop('selected', true);
+			
+			$("#add-lang").trigger("click");	////
+		}
 		
 		// 언어 및 레벨 추가하기 버튼 클릭 시, 입력창 생성
 		$("#add-lang").click(function()
@@ -184,7 +216,7 @@
 			var lvl = $("#lvl-select option:selected").text();
 			
 			var tag = "	<div class='alert alert-dismissible alert-secondary tutorProfileButtons1'>"
-					  + "<button type='button' class='close' data-dismiss='alert'>&times;</button>"
+					  + "<button type='button' class='close' data-dismiss='alert' >&times;</button>"
 					  + lang + " " + lvl
 					  + "</div>";
 					  
@@ -195,56 +227,59 @@
 		
 		
 		
-		
-		
-		
-		/* 
-		// 경력 삭제
-		$(".delete-career").click(function(a)
-				{
-					// 이벤트 객체의 값을 가져옴.
-					var CAREER_ID = a.target.value;
-					doAjax(CAREER_ID);
-				});
-		 */
-		
-		
-	});
-	
-	/* 
-	
-	function doAjax(CAREER_ID) {
-		var param = {};
-		param.CAREER_ID = CAREER_ID;
-		
-		$.ajax({
-			type : 'POST'
-			, url : '/tutor_info_deleteCareer_ajax'
-			, data : param
-			, success : function(data, textStatus, jqXHR) {
-				doNext(data);
-			}
-			, error : function(jqXHR, textStatus, errorThrown) {
-				alert('ERROR : ' + textStatus);
-				console.log(jqXHR, textStatus, errorThrown);
-			}
+		// 링크 추가 버튼 클릭 시, 입력창 생성
+		$("#add-link01").click(function()
+		{
+			$("#link02").show();
+			$("#add-link01").hide();
+			$("#del-link01").show();
 		});
+		
+		$("#add-link02").click(function()
+		{
+			$("#link03").show();
+			$("#add-link02").hide();
+			$("#del-link02").show();
+		});
+		
+		
+		// 링크 삭제 버튼 클릭 시, 내용 삭제
+		$("#del-link01").click(function()
+		{
+			$("#link-select01 option:eq(0)").attr("selected", "selected");
+			$("#linkText01").val("");
+		});
+		
+		$("#del-link02").click(function()
+		{
+			$("#link-select02 option:eq(0)").attr("selected", "selected");
+			$("#linkText02").val("");
+		});
+		
+		$("#del-link03").click(function()
+		{
+			$("#link-select03 option:eq(0)").attr("selected", "selected");
+			$("#linkText03").val("");
+		});
+		
+		
+		// 링크 불러오기
+		// 링크 개수에 따라 show/hide 결정 
+		var linkCount = $('input[name=linkCount]').val();
+
+		if(linkCount == 2)
+		{
+			$("#add-link01").trigger("click");
+		}
+		else if(linkCount == 3)
+		{
+			$("#add-link02").trigger("click");
+		}
+		
+		
+		
+		
 	});
-	
-	function doNext(data) {
-		var json = JSON.parse(data);
-		
-		var thisMidText = json.mid;
-		var thisNameText = json.name;
-		var thisTelephoneText = json.telephone;
-		
-		$('#midResult').val(thisMidText);
-		$('#nameResult').val(thisNameText);
-		$('#telephoneResult').val(thisTelephoneText);
-	}
-	 */
-	
-	
 	
 </script>
 
@@ -296,9 +331,6 @@
 	<br>
 
 	<!-- 전화번호 -->
-	
-
-
 	<div class="row">
 		<div class="col-3">
 			<span class="bold">전화번호</span>
@@ -317,7 +349,6 @@
 	<br>
 
 	<!-- 레벨설정 -->
-
 	<div class="row">
 		<div class="col-3">
 			<span class="bold">레벨설정</span>
@@ -350,11 +381,17 @@
 		<div class="col-7" id="tag-lang">
 			
 			<c:forEach var="interest" items="${interest }">
+				<input type="hidden" name="interestId" value="${interest.INTEREST_ID }" >
+				<input type="hidden" name="levelId" value="${interest.LEVEL_ID }">
+			</c:forEach>
+<%-- 			<c:forEach var="interest" items="${interest }">
 				<div class="alert alert-dismissible alert-secondary tutorProfileButtons1">
 					<button type="button" class="close" data-dismiss="alert" id="${interest.TUTOR_INTEREST_ID }">&times;</button>
 					${interest.INTEREST_CAT } ${interest.LEVEL_NAME }
 				</div>
-			</c:forEach>
+				<input type="hidden" name="interestCat" value="${interest.INTEREST_CAT }" >
+				<input type="hidden" name="levelName">
+			</c:forEach> --%>
 					
 		</div>
 	</div>
@@ -367,51 +404,58 @@
 			<span class="bold">경력</span>
 		</div>
 		<div class="col-8">
-			<c:forEach var="career" items="${career }" varStatus="status">
-				<div class="row row-career del-car" id="${status.count}" >
-					<div class="col-12 col-career">
-						<input type="text" value="${career.CAREER_START }" readonly="readonly"
-							style="width: 38%"> ~ <input type="text" value="${career.CAREER_END }"
-							readonly="readonly" style="width: 38%">
-					</div>
-					<div class="tutorProfileReviseBox col-8 col-career">
-						<input type="text" class="form-control" value="${career.CAREER_CONTENT }"
-							id="tutorname">
-					</div>
-					<div class="tutorProfileReviseBox col-4 col-career">
-						<input type="button" class="btn btn-primary"value="삭제하기">
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-
-	<br>
-	
-	<div class="row" id="tag-html">
-		<div class="col-3">
-			<span class="bold"></span>
-		</div>
-		<div class="col-8">
-			<div class="row row-career">
+		<span style="color: red; font-weight: bold;"> &nbsp;&nbsp;&nbsp; ※ 경력은 최대 3개까지 입력 가능합니다.</span>
+		<input type="hidden" name="careerCount" value="${careerCount }" >	
+			<div class="row row-career" id="add01">
 				<div class="col-12 col-career">
-					<input type="text" id="datepicker1" value="" ${careerCount >= 3 ? 'disabled="disabled"' : ''}
+					<input type="text" id="datepicker1" value="${career[0].CAREER_START }" 
 						readonly="readonly" placeholder="시작 날짜"
-						style="width: 38%"> ~ <input type="text" id="datepicker2" value="" ${careerCount >= 3 ? 'disabled="disabled"' : ''}
+						style="width: 38%"> ~ <input type="text" id="datepicker2" value="${career[0].CAREER_END }"
 						readonly="readonly" placeholder="종료 날짜" style="width: 38%">
 				</div>
 				<div class="tutorProfileReviseBox col-8 col-career">
-					<input type="text" class="form-control" value="" ${careerCount >= 3 ? 'disabled="disabled"' : ''}
-						id="tutorname" placeholder="경력사항을 입력하세요.">
+					<input type="text" class="form-control" value="${career[0].CAREER_CONTENT }"
+						id="career01" placeholder="경력사항을 입력하세요.">
 				</div>
 				<div class="tutorProfileReviseBox col-4 col-career">
-					<button type="button" class="btn btn-primary" id="add-button" ${careerCount >= 3 ? 'disabled="disabled"' : ''}>추가하기</button>
+					<button type="button" class="btn btn-primary" id="add-button01">추가하기</button>
+					<button type="button" class="btn btn-primary" id="del-button01" style="display: none;">삭제하기</button>
 				</div>
-				<span style="color: red; font-weight: bold; ${careerCount >= 3 ? 'display: inline;' : 'display:none;'} "> &nbsp;&nbsp;&nbsp; ※ 경력은 최대 3개까지 입력 가능합니다.</span>
+			</div>
+			<div class="row row-career" id="add02" style="display: none;">
+				<div class="col-12 col-career">
+					<input type="text" id="datepicker3" value="${career[1].CAREER_START }"
+						readonly="readonly" placeholder="시작 날짜"
+						style="width: 38%"> ~ <input type="text" id="datepicker4" value="${career[1].CAREER_END }"
+						readonly="readonly" placeholder="종료 날짜" style="width: 38%">
+				</div>
+				<div class="tutorProfileReviseBox col-8 col-career">
+					<input type="text" class="form-control" value="${career[1].CAREER_CONTENT }"
+						id="career02" placeholder="경력사항을 입력하세요.">
+				</div>
+				<div class="tutorProfileReviseBox col-4 col-career">
+					<button type="button" class="btn btn-primary" id="add-button02">추가하기</button>
+					<button type="button" class="btn btn-primary" id="del-button02" style="display: none;">삭제하기</button>
+				</div>
+			</div>
+			<div class="row row-career" id="add03" style="display: none;" >
+				<div class="col-12 col-career">
+					<input type="text" id="datepicker5" value="${career[2].CAREER_START }"
+						readonly="readonly" placeholder="시작 날짜"
+						style="width: 38%"> ~ <input type="text" id="datepicker6" value="${career[2].CAREER_END }"
+						readonly="readonly" placeholder="종료 날짜" style="width: 38%" >
+				</div>
+				<div class="tutorProfileReviseBox col-8 col-career">
+					<input type="text" class="form-control" value="${career[2].CAREER_CONTENT }"
+						id="career03" placeholder="경력사항을 입력하세요.">
+				</div>
+				<div class="tutorProfileReviseBox col-4 col-career">
+					<button type="button" class="btn btn-primary" id="del-button03">삭제하기</button>
+				</div>
 			</div>
 		</div>
 	</div>
-
+	
 	<br>
 
 
@@ -512,11 +556,6 @@
 
 
 
-	<%-- <div class="row">
-		<!-- <textarea class="form-control" rows="5" placeholder="내용을 입력하세요."></textarea> -->
-		<textarea class="form-control" rows="5">${info.INTRO }</textarea>
-	</div> --%>
-
 	<!-- 링크등록 -->
 	<div class="row">
 		<div class="col-3">
@@ -524,44 +563,63 @@
 		</div>
 		
 		<div class="col-8">
-				<div class="row row-career">
-					<c:forEach var="link" items="${link }">
+			<span style="color: red; font-weight: bold;"> &nbsp;&nbsp;&nbsp; ※ 링크는 최대 3개까지 입력 가능합니다.</span>
+			<input type="hidden" name="linkCount" value="${linkCount }" >
+				<div class="row row-career" id="link01">
 						<div class="col-3">
-							<select class="form-control" id="link-select">
-				 				<option  ${link.LINK_CAT_ID == 1 ? "selected = 'selected'" : '' }>영상</option>
-								<option  ${link.LINK_CAT_ID == 2 ? "selected = 'selected'" : '' }>블로그</option>
-								<option  ${link.LINK_CAT_ID == 3 ? "selected = 'selected'" : '' }>기타</option>
+							<select class="form-control" id="link-select01">
+				 				<option  ${link[0].LINK_CAT_ID == 1 ? "selected = 'selected'" : '' }>블로그</option>
+								<option  ${link[0].LINK_CAT_ID == 2 ? "selected = 'selected'" : '' }>영상</option>
+								<option  ${link[0].LINK_CAT_ID == 3 ? "selected = 'selected'" : '' }>기타</option>
 							</select>
 						</div>
 						<div class="col-7">
-							<input type="text" class="form-control" value="${link.LINK_ADDR }">
+							<input type="text" class="form-control" id="linkText01" value="${link[0].LINK_ADDR }" placeholder="링크를 입력하세요.">
 						</div>
 						<div class="col-2">
-							<button type="button" class="btn btn-primary">삭제</button>
+							<button type="button" class="btn btn-primary" id="add-link01">추가</button>
+							<button type="button" class="btn btn-primary" id="del-link01" style="display: none;">삭제</button>
+						</div>
+						<br>
+				</div>
+				<div class="row row-career" id="link02" style="display: none;">
+						<div class="col-3">
+							<select class="form-control" id="link-select02">
+				 				<option  ${link[1].LINK_CAT_ID == 1 ? "selected = 'selected'" : '' }>블로그</option>
+								<option  ${link[1].LINK_CAT_ID == 2 ? "selected = 'selected'" : '' }>영상</option>
+								<option  ${link[1].LINK_CAT_ID == 3 ? "selected = 'selected'" : '' }>기타</option>
+							</select>
+						</div>
+						<div class="col-7">
+							<input type="text" class="form-control" id="linkText02" value="${link[1].LINK_ADDR }"  placeholder="링크를 입력하세요.">
+						</div>
+						<div class="col-2">
+							<button type="button" class="btn btn-primary" id="add-link02">추가</button>
+							<button type="button" class="btn btn-primary" id="del-link02" style="display: none;">삭제</button>
+						</div>
+						<br>
+				</div>
+				<div class="row row-career" id="link03" style="display: none;">
+						<div class="col-3">
+							<select class="form-control" id="link-select03">
+				 				<option  ${link[2].LINK_CAT_ID == 1 ? "selected = 'selected'" : '' }>블로그</option>
+								<option  ${link[2].LINK_CAT_ID == 2 ? "selected = 'selected'" : '' }>영상</option>
+								<option  ${link[2].LINK_CAT_ID == 3 ? "selected = 'selected'" : '' }>기타</option>
+							</select>
+						</div>
+						<div class="col-7">
+							<input type="text" class="form-control" id="linkText03" value="${link[2].LINK_ADDR }" placeholder="링크를 입력하세요.">
+						</div>
+						<div class="col-2">
+							<button type="button" class="btn btn-primary" id="del-link03">삭제</button>
 						</div>
 						<br><br>
-					</c:forEach>
-				</div>
-				<div class="row row-career">
-					<div class="col-3">
-						<select class="form-control">
-							<option value="1">영상</option>
-							<option value="2">블로그</option>
-							<option value="3">기타</option>
-						</select>
-					</div>
-					<div class="col-7">
-						<input type="text" class="form-control">
-					</div>
-					<div class="col-2">
-						<button type="button" class="btn btn-primary">추가</button>
-					</div>
 				</div>
 		</div>
-		<br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br> <br>
 		<button type="button" class="btn btn-primary btn-lg"
 			style="width: 200px; height: 50px; margin-left: 40%;" id="updateBtn">수정하기</button>
-		<br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br> <br>
 	</div>
 </div>
 

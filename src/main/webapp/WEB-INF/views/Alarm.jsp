@@ -5,7 +5,7 @@
 	String cp = request.getContextPath();
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
 <title>Bootdey.com</title>

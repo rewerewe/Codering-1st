@@ -198,7 +198,6 @@
 				var html = "";
 				var cCnt = data.length; 
 				
-				
 				if(data.length > 0)
 				{
 					for(i=0; i<data.length; i++)

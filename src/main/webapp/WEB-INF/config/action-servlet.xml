@@ -43,6 +43,7 @@
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 	
+	
 	<!-- log4j 를 활용하기 위해 DispatheServlet 에 들어가는 request를 인터셉트 -->
 	<mvc:interceptors>
 		<mvc:interceptor>

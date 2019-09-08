@@ -17,5 +17,14 @@ public interface TutorTutoringSearchService {
 	public int selectTutorTutoringSearchListCnt2(HttpServletRequest request, Map<String, Object> map) throws Exception;
 
 	public List<Map<String, Object>> selectTutorTutoringSearchList2(HttpServletRequest request, Map<String, Object> map) throws Exception;
+	
+	public Map<String,Object> selectTutoringTuteeDetail(Map<String,Object> map);
+	
+	public void insertApply(Map<String,Object> map);
+	
+	public void insertReservation(Map<String,Object> map);
 
+	public void deleteReservation(Map<String,Object> map);
+	
+	public void deleteApply(Map<String,Object> map);
 }

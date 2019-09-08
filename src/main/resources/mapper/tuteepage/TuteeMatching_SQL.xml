@@ -36,7 +36,7 @@
 		WHERE
 			T.MEMBER_ID = #{MEMBER_ID}
 		ORDER BY 
-			T.UPLOAD_DATE
+			T.UPLOAD_DATE 
 			
 	</select>
 	
@@ -180,6 +180,23 @@
 			INVITE_ID = #{INVITE_ID}
 	</delete>
 	
+	
+	
+	<!-- 대화에서 초대 튜터 이름 조회 -->
+	<select id="inviteTutor" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			TUTOR_NAME
+		FROM 
+			TUTOR_INVITE I
+			, TUTOR_INFO F
+		WHERE 
+			INVITE_ID = #{INVITE_ID}
+		  AND 
+		  	I.TUTOR_ID = F.TUTOR_ID
+	</select>
+	
+	
+		
 	<!-- 초대튜터 대화 메시지 조회 -->
 	<select id="inviteMsg" parameterType="hashmap" resultType="hashmap">
 		SELECT 
@@ -219,6 +236,23 @@
 		WHERE INVITE_ID = ${INVITE_ID}
 	
 	</update>
+	
+	
+	
+	<!-- 대화에서 지원 튜터 이름 조회 -->
+	<select id="applyTutor" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			TUTOR_NAME
+		FROM 
+			TUTOR_APPLY I
+			, TUTOR_INFO F
+		WHERE 
+			APPLY_ID = #{APPLY_ID}
+		  AND 
+		  	I.TUTOR_ID = F.TUTOR_ID
+	</select>
+	
+	
 	
 	
 	<!-- 지원튜터 대화 메시지 조회 -->

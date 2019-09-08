@@ -84,7 +84,7 @@
       <div class="col-lg-8">
 
         <!-- Title -->
-        <h1 class="mt-4">웹 프로그래밍 같이 시작하실 분~!!!</h1>
+        <h1 class="mt-4">${selectTutoringTutee.TUTORING_TITLE }</h1>
 
         <!-- Author -->
         <p class="lead">
@@ -95,7 +95,7 @@
         <hr>
 
         <!-- Date/Time -->
-        <p style="font-size: small;">2019-07-15 12:00 PM 작성</p>
+        <p style="font-size: small;">${selectTutoringTutee.UPLOAD_DATE } 작성</p>
 
         <hr>
 
@@ -107,24 +107,12 @@
 	        	<p class="lead" style="font-weight: bold;">튜터링 소개</p>
 	        </div>
 			<div class="col-xs-12 col-sm-9">
-		        <p class="subcontent">웹 프로그래밍 함께 공부하실 분 찾습니다~!!!
-		        
-		        소수정예로 8주 이내로 공부하고 싶습니다. 저도 초급 레벨이기 때문에 기초부터 탄탄히 하실 분들 구해요.</p>
-		
-		        <p class="subcontent">[커리큘럼]<br>
-				1. 기본 문장 구성<br>
-				-be동사/일반동사 평서문/부정문/의문문<br>
-				-시제1 (현재/과거/미래)<br>
-				-시제2 (진행형)<br>
-				-질문하기 & 복습<br>
-					:</p>
+		        <p class="subcontent">${selectTutoringTutee.INTRO }</p>
 					
-					
-				<p>
+				
 					<ul class="subcontent">
-						<li><span class="fas fa-check"></span>&nbsp;&nbsp;&nbsp;&nbsp;JAVA 초급, Oracle SQL 초급 권장</li>
+						<li><span class="fas fa-check"></span>&nbsp;&nbsp;&nbsp;&nbsp;<c:forEach var="langLv" items="${selectTuteeNeedTech }">${langLv.INTEREST_CAT }-${langLv.LEVEL_NAME }</c:forEach> 권장</li>
 					</ul> 
-				</p>
 			</div>
 		</div>
 		
@@ -136,14 +124,18 @@
 	        </div>
 			<div class="col-xs-12 col-sm-9 subcontent list-unstyled">
 				<ul>
-					<li><span class="fa fa-map-pin"></span>&nbsp;&nbsp;&nbsp;&nbsp;  신촌 희망</li>
-					<li><span class="far fa-calendar-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;  8주 희망</li>
-					<li><span class="far fa-clock"></span>&nbsp;&nbsp;&nbsp;&nbsp;  평일 오후 희망</li>
-					<li><span class="fa fa-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;  3 ~ 4명 희망</li>
-					<li><span class="fa fa-tag"></span>&nbsp;&nbsp;&nbsp;&nbsp;  400,000 원 희망</li>
+					<li><span class="fa fa-map-pin"></span>&nbsp;&nbsp;&nbsp;&nbsp;  ${selectTutoringTutee.REG_NAME } 희망</li>
+					<li><span class="far fa-calendar-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;  ${selectTutoringTutee.ENTIRE_PERIOD }회 희망</li>
+					<li><span class="far fa-clock"></span>&nbsp;&nbsp;&nbsp;&nbsp;  
+					<c:forEach var="time" items="${selectTutoringTime}">
+					${time.WEEDAY_END }-${AM_PM }</c:forEach>희망</li>
+					<li><span class="fa fa-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;  ${selectTutoringTutee.MIN_NUM }명 ~ ${selectTutoringTutee.MAX_NUM }명 희망</li>
+					<li><span class="fa fa-tag"></span>&nbsp;&nbsp;&nbsp;&nbsp;  ${selectTutoringTutee.ENTRY_COST } 원 희망</li>
 				</ul>
 				<br>
 				<!-- 지도 api 넣을 부분 (임시 img) -->
+				<input type="hidden" name="REG_LONG" value="${selectTutoringTutee.REG_LONG }">
+				<input type="hidden" name="REG_LAT" value="${selectTutoringTutee.REG_LAT }">
 				<img alt="map" src="css/img/img02.jpg" id="mapImg">
 			</div>
 		</div>
@@ -156,13 +148,11 @@
 	        </div>
 			<div class="col-xs-12 col-sm-9">
 				<div id="wrapper cell" style="font-weight: bold;">
-					<img alt="tutor pic" src="css/img/img03.jpg" class="rounded-circle" id="profilePic01"> &nbsp;&nbsp; 튜티장 아기천사
+					<img alt="tutor pic" src="${selectTutoringTutee.PROF_PATH }" class="rounded-circle" id="profilePic01"> &nbsp;&nbsp; 튜티장 ${selectTutoringTutee.NICKNAME }
 				<br>
 				<br>
 				</div>
-		        <p class="subcontent">javascript 를 열심히 공부하고 있습니다. 튜터링 10회 이상 참가하였고 튜티장 경험도 있습니다. </p>
-				
-				<p class="subcontent">레벨은 초급이지만 배우고자 하는 열정이 넘치시는 분들! HTML/CSS 기초를 배우고 싶으신 분들 환영합니다.</p>
+		        ${selectTutoringTutee.TCOMMENT }
 			</div>
 		</div> <!-- Post Content.row -->
         
@@ -234,23 +224,42 @@
 
         <!-- Search Widget -->
 		<div class="card my-4" id="fixed">
-			<h5 class="card-header" style="font-weight: bold;">웹 프로그래밍 같이 시작하실 분~!!!</h5>
+			<h5 class="card-header" style="font-weight: bold;">${selectTutoringTutee.TUTORING_TITLE }</h5>
 			<div class="card-body">
 				<div class="row">
 					<div class="list-unstyled mb-0" id="table">
 						<div class="row-div">
+							<span class="cell col1 subcontent">예약 인원</span>
+							<span class="cell col2" style="font-weight: bold;"><h5>${selectTotReservationCount }명</h5></span>
+						</div>
+						<div class="row-div">
 							<span class="cell col1 subcontent">희망 참가비</span>
-							<span class="cell col2" style="font-weight: bold;"><h5>400,000 원</h5></span>
+							<span class="cell col2" style="font-weight: bold;"><h5>${selectTutoringTutee.ENTRY_COST } 원</h5></span>
 						</div>
 						<div class="row-div">
 							<span class="cell col1 subcontent">희망 일정</span>
-							<span class="cell col2" style="font-weight: bold;"><h5>최대 8주, 평일 오후</h5></span>
+							<span class="cell col2" style="font-weight: bold;"><h5>최대 ${selectTutoringTutee.ENTIRE_PERIOD }회<c:forEach var="time" items="${selectTutoringTime}">
+					${time.WEEDAY_END }-${time.AM_PM }</c:forEach> </h5></span>
 						</div>
 					</div>
 				</div>
-				<input type="button" value="예약하기" class="btn btn-primary btn-block">
+				<c:choose>
+					<c:when test="${selectReservationCount == 1 }">
+						<input type="button" value="예약취소" class="btn btn-primary btn-block" onclick="deleteReservation?TUTORING_TUTEE_ID=${selectTutoringTutee.TUTORING_TUTEE_ID}">
+					</c:when>
+					<c:otherwise>
+						<input type="button" value="예약하기" class="btn btn-primary btn-block" onclick="insertReservation?TUTORING_TUTEE_ID=${selectTutoringTutee.TUTORING_TUTEE_ID}">
+					</c:otherwise>
+				</c:choose>
 				<br>
-				<input type="button" value="튜터 지원하기" class="btn btn-primary btn-block">
+				<c:choose>
+					<c:when test="${selectApplyCount == 1 }">
+						<input type="button" value="튜터 지원취소" class="btn btn-primary btn-block" onclick="deleteApply?TUTORING_TUTEE_ID=${selectTutoringTutee.TUTORING_TUTEE_ID}">
+					</c:when>
+					<c:otherwise>
+						<input type="button" value="튜터 지원하기" class="btn btn-primary btn-block" onclick="insertApply?TUTORING_TUTEE_ID=${selectTutoringTutee.TUTORING_TUTEE_ID}">
+					</c:otherwise>
+				</c:choose>
 			</div>
 		 </div>
 	   </div><!-- Sidebar Widgets Column -->

@@ -79,7 +79,7 @@
 		$("#sendit").click(function() 
 		{
 			var APPLY_ID = $('input[name=applyId]').val();
-			var NICKNAME = $('input[name=tuteeWrite]').val();
+			var NICKNAME = $('input[name=nickname]').val();
 			var CONTENT = $("#msg").val();
 			
 			if(CONTENT == "")
@@ -132,6 +132,8 @@
 	{
 		var APPLY_ID = $('input[name=applyId]').val();
 		var NICKNAME = $('input[name=nickname]').val();
+		var TUTOR_NAME = $('input[name=writer]').val();
+		TUTOR_NAME = TUTOR_NAME.trim();
 		
 		$.ajax({
 			type : "POST",
@@ -141,31 +143,13 @@
 			success : function(data)
 			{
 				var strMsg = "";
-				var strInfo = "";
-				var j = 0;
-				
-				
-				// 튜터 이름 가져오기
-				do
-				{
-					if (data[j].WRITER != NICKNAME)
-					{
-						strInfo += "<h5 class='title title_name'>튜터 "+ data[j].WRITER +" 님</h5>"
-						strInfo += "<input type='hidden' name='writer' value=' "+ data[j].WRITER +" ' />";
-						break;
-					}
-					
-					j++;
-					
-				} while (true);
-				
 				
 				// 대화 메시지 출력
 				for (var i = 0; i < data.length; i++)
 				{
 					strMsg += "		<input type='hidden' name='tutoringId' value='" + data[i].TUTORING_TUTEE_ID + "'/>"
 					
-					if (data[i].WRITER == NICKNAME)
+					if (TUTOR_NAME != data[i].WRITER)
 					{
 						strMsg += "					<div class='outgoing_msg'>"
 						strMsg += "						<div class='sent_msg'>"
@@ -176,7 +160,7 @@
 						strMsg += "					</div>"
 						strMsg += "					<br>"
 					}
-					else
+					else if (TUTOR_NAME == data[i].WRITER)
 					{
 						strMsg += "				<div class='incoming_msg'>"
 						strMsg += "					<div class='incoming_msg_img'>"
@@ -195,10 +179,6 @@
 					}
 				}
 				
-				
-				
-
-				
 				if (data[0].MACH_LV_ID == 8)
 				{
 					$("#confirm").attr("disabled", "disabled"); // MACH_LV 에 따라 변화
@@ -210,7 +190,6 @@
 					$("#confirmDone").css("display", "inline");
 				}
 				
-				$("#msgInfo").html(strInfo);
 				$("#sent").html(strMsg);
 				$("#scroll3").scrollTop($("#scroll3")[0].scrollHeight);
 				
@@ -255,7 +234,13 @@
 			<div id="tab01" class="tab-contents">
 				<div class="messaging">
 					<div class="inbox_msg">
-						<div id="msgInfo"></div>
+						<div id="msgInfo">
+						
+							<!-- 튜터 이름 가져오기 -->
+							<h5 class='title title_name'>튜터 ${applyTutor.TUTOR_NAME } 님</h5>
+							<input type='hidden' name='writer' value=' ${applyTutor.TUTOR_NAME }' />
+						
+						</div>
 						
 						<div class="mesgs">  
 							<div class="msg_history mCustomScrollbar" id="scroll3">

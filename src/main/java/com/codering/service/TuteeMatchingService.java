@@ -20,13 +20,14 @@ public interface TuteeMatchingService
 	public void insertSendMsgInvite(Map<String, Object> map);
 	public void updateInviteReadcheck(Map<String, Object> map);
 	public void updateConfirmInvite(Map<String, Object> map);
+	public Map<String, Object> selectInviteTutor(Map<String, Object> map);
 	
 	// 지원 튜터 대화
 	public Map<String, Object> selectApplyMsg(Map<String, Object> map);
 	public void updateApplyReadcheck(Map<String, Object> map);
 	public void insertSendMsgApply(Map<String, Object> map);
 	public void updateConfirmApply(Map<String, Object> map);
-	//public Map<String, Object> selectApplyMsgInfo(Map<String, Object> map);
+	public Map<String, Object> selectApplyTutor(Map<String, Object> map);
 	
 
 	// 문의 관리

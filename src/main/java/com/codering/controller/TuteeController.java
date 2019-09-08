@@ -96,6 +96,14 @@ public class TuteeController
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="tutoring_tutee_done")
+	public ModelAndView tutoring_tutee_done(CommandMap commandMap)
+	{
+		ModelAndView mav = new ModelAndView("Tutoring_tutee_done");
+		
+		return mav;
+	}
 }
 
 
